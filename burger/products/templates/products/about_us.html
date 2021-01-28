@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>about_us</title>
+</head>
+<body>
+{% for us in about_us %}
+    <h1>{{us.title}}</h1>
+    <p><h3>{{us.text1}}</h3></p>
+{%endfor%}
+</body>
+</html>

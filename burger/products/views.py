@@ -1,5 +1,14 @@
 from django.shortcuts import render
+from .models import Product,About_us
 
 # Create your views here.
 def homepage(request):
-    return render(request,'products/products.html')
+    products = Product.objects.all()
+    return render(request,'products/products.html',{'products':products})
+def us(request):
+    about_us=About_us.objects.all()
+    return render(request, 'products/about_us.html',{'about_us':about_us})
+
+
+
+
