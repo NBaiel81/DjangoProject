@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>contacts</title>
+</head>
+<body>
+{% for cont in contacts %}
+    <h1>{{cont.address}}</h1>
+    <h2>{{cont.phone}}</h2>
+    <h3>{{cont.time}}</h3>
+    <h4>{{cont.mng_name}}</h4>
+{%endfor%}
+</body>
+</html>

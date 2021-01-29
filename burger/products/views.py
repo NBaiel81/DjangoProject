@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Product,About_us
+from .models import Product,About_us,Contacts
 
 # Create your views here.
 def homepage(request):
@@ -8,6 +8,9 @@ def homepage(request):
 def us(request):
     about_us=About_us.objects.all()
     return render(request, 'products/about_us.html',{'about_us':about_us})
+def cont(request):
+    contacts=Contacts.objects.all()
+    return render(request,"products/contacts.html",{'contacts':contacts})
 
 
 

@@ -5,27 +5,25 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Baiel's burgers are the best!!!</h1>
-<table>
-<tr>
-    <th>name</th>
-    <th>description</th>
-    <th>category</th>
-    <th>price</th>
-    <th>size</th>
-</tr>
-{% for product in products %}
-    <tr>
-        <td>{{product.name}}</td>
-        <td>{{product.description}}</td>
-        <td>{{product.category}}</td>
-        <td>{{product.price}}</td>
-        <td>{{product.size}}</td>
-    </tr>
-{%endfor%}
-</table>
-<a href="https://www.google.com/imghp?sbi=1">
-    click me!
-</a>
+<div class="container pb-5 mb-sm-1">
+    <!-- Categories grid-->
+    <div class="row">
+        <!-- Category-->
+        {% for product in products%}
+        <div class="col-md-4 col-sm-6">
+            <div class="card border-0 mb-grid-gutter">
+                <a class="card-img-tiles" href="shop-style1-ls.html">
+                    <div class="main-img"><img src="{{product.image.url}}" width=300px height=200px alt="Burger"></div>
+                    <div class="thumblist"><img src="{{product.image.url}}" width=175px height=120px alt="Burger"><img src="{{product.image.url}}" width=175px height=120px alt="Burger"></div>
+                </a>
+                <div class="card-body border mt-n1 py-4 text-center">
+                    <h2 class="h5 mb-1">{{product.name}}</h2>
+                    <span class="d-block mb-3 font-size-xs text-muted">{{product.description}}<span class="font-weight-semibold">{{product.price}}</span><span class="font-weight-semibold">{{product.category}}</span></span><a class="btn btn-pill btn-outline-primary btn-sm" href="shop-style1-ls.html">Shop burger</a>
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+</div>
 </body>
 </html>
