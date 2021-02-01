@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Product,About_us,Contacts
+from .forms import register_form
 
 # Create your views here.
 def homepage(request):
@@ -11,6 +12,11 @@ def us(request):
 def cont(request):
     contacts=Contacts.objects.all()
     return render(request,"products/contacts.html",{'contacts':contacts})
+def register(request):
+    form=register_form
+    context={"form":form}
+    return render(request,"products/form.html",context)
+
 
 
 

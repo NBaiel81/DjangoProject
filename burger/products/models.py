@@ -29,3 +29,5 @@ class Contacts(models.Model):
     mng_name=models.CharField(max_length=50)
 
 
+
+
