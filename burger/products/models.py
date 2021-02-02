@@ -28,6 +28,21 @@ class Contacts(models.Model):
     time=models.CharField(max_length=50)
     mng_name=models.CharField(max_length=50)
 
+class Order(models.Model):
+    statuses=(
+        ('pending','pending'),
+        ('in_process','in_process'),
+        ('not_delivered',"not_delivered"),
+        ('delivered','delivered')
+    )
+    status=models.CharField(max_length=40,choices=statuses, default='in_process')
+    date=models.DateTimeField(auto_now_add=True)
+    product=models.ForeignKey(Product,on_delete=models.SET_NULL,null=True)
+
+
+
+
+
 
 
 
