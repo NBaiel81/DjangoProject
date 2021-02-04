@@ -1,31 +1,27 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-{% for user in users%}
+{% extends 'products/base.html' %}
+{% block content %}
+
 <table class="table">
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
       <th scope="col">Names</th>
+      <th scope="col">EMail</th>
 
     </tr>
   </thead>
   <tbody>
+  {% for user in users %}
     <tr>
-      <th scope="row">1</th>
-      <td>{{user.name}}</td>
-
+      <th scope="row"></th>
+      <td>{{user.username}}</td>
+      <td>{{user.email}}</td>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>{{user.name}}</td>
+  {%endfor%}
 
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>{{user.name}}</td>
 
-    </tr>
   </tbody>
-   {%endfor%}
+
 </table>
+{% endblock %}
 
