@@ -2,44 +2,68 @@ from django.db import models
 
 # Create your models here.
 class Product(models.Model):
-    categories=(
+    categories = (
         ('vegan','vegan'),
-        ('not_vegan','not_vegan')
+        ('not_vegan','not_vegan'),
     )
-    sizes=(
+    sizes = (
         ('small','small'),
         ('middle','middle'),
         ('great','great')
     )
-    name=models.CharField(max_length=40)
-    category=models.CharField(max_length=40,choices=categories)
-    description=models.TextField(blank=True,null=True)
-    price=models.FloatField()
-    size=models.CharField(choices=sizes,max_length=20)
-    image=models.ImageField(blank=True,null=True)
+    image = models.ImageField(blank=True,null=True,verbose_name='Картинки',default='pizza_default.jpg')
+    name = models.CharField(max_length=40,verbose_name='Название',unique=True)
+    category = models.CharField(max_length=40,choices=categories,verbose_name='Категория')
+    description = models.TextField(blank=True,null=True,verbose_name='Описание')
+    price = models.FloatField(verbose_name='Стоимость')
+    size = models.CharField(choices=sizes,max_length=50,verbose_name='Размер')
 
-class About_us(models.Model):
-    title=models.CharField(max_length=100)
-    text1=models.CharField(max_length=500)
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Продукт'
+        verbose_name_plural = 'Продукты'
+
+
+class AboutUs(models.Model):
+    title = models.CharField(max_length=20,verbose_name='Название')
+    description = models.TextField(blank=True,null=True,verbose_name='Описание')
+
+
+    class Meta:
+        verbose_name = 'О нас!'
+        verbose_name_plural = 'О нас!'
+
 
 class Contacts(models.Model):
-    address=models.CharField(max_length=50)
-    phone=models.IntegerField(max_length=50)
-    time=models.CharField(max_length=50)
-    mng_name=models.CharField(max_length=50)
+    address = models.CharField(max_length=40,verbose_name='Адрес')
+    phone = models.IntegerField(verbose_name='Телефон')
+    time = models.CharField(max_length=20,verbose_name='Время')
+    mng_name = models.CharField(max_length=40,verbose_name='Имя менеджера')
+
+
+    class Meta:
+        verbose_name = 'Контакт'
+        verbose_name_plural = 'Контакты'
+
 
 class Order(models.Model):
-    statuses=(
+    statuses = (
         ('pending','pending'),
         ('in_process','in_process'),
-        ('not_delivered',"not_delivered"),
-        ('delivered','delivered')
+        ('delivered','delivered'),
+        ('not_delivered','not_delivered')
     )
-    status=models.CharField(max_length=40,choices=statuses, default='in_process')
-    date=models.DateTimeField(auto_now_add=True)
-    product=models.ForeignKey(Product,on_delete=models.SET_NULL,null=True)
+    status = models.CharField(max_length=50,choices=statuses,default='in_process',verbose_name='Статус')
+    date = models.DateTimeField(auto_now_add=True,verbose_name='Дата')
+    product = models.ForeignKey(Product,on_delete=models.SET_NULL,null=True,verbose_name='Продукты')
+    quantity = models.IntegerField(verbose_name='Количество')
 
 
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
 
 
 

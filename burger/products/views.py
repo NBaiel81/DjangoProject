@@ -1,16 +1,21 @@
-from django.contrib.auth.models import User
-from django.shortcuts import render
-from .models import Product,About_us,Contacts,Order
-from .forms import *
-User
+# from django.contrib.auth.models import User
+# from django.shortcuts import render
+# from .models import Product,About_us,Contacts,Order
+# from .forms import *
+# User
 
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
+from .models import Product,AboutUs,Contacts
+from .forms import *
 
 # Create your views here.
 def homepage(request):
     products = Product.objects.all()
     return render(request,'products/products.html',{'products':products})
 def us(request):
-    about_us=About_us.objects.all()
+    about_us=AboutUs.objects.all()
     return render(request, 'products/about_us.html',{'about_us':about_us})
 def cont(request):
     contacts=Contacts.objects.all()
@@ -58,6 +63,14 @@ def delete_order(request,order_id):
         return redirect('home')
     context = {'order':order}
     return render(request,'products/delete.html',context)
+
+def sign_in(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request,username=username,password=password)
+        login(request,user)
+    return render(request,'products/login.html')
 
 
 
