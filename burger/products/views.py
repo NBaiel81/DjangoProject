@@ -4,7 +4,7 @@
 # from .forms import *
 # User
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from .models import Product,AboutUs,Contacts
@@ -26,8 +26,9 @@ def register(request):
         form=UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('home')
     context={"form":form}
-    return render(request,"products/form.html",context)
+    return render(request,"products/register.html",context)
 
 def user_list(request):
     users=User.objects.all()
@@ -70,8 +71,12 @@ def sign_in(request):
         password = request.POST.get('password')
         user = authenticate(request,username=username,password=password)
         login(request,user)
+        return redirect('home')
     return render(request,'products/login.html')
 
+def logout_page(register):
+    logout(register)
+    return redirect('home')
 
 
 

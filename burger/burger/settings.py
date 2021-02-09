@@ -122,3 +122,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+
+
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_HOST_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER= "jabanm2021@gmail.com"
+EMAIL_HOST_PASSWORD='Pizz!123a'
