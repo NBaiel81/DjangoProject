@@ -13,9 +13,10 @@ urlpatterns=[
     path('delete_order/<int:order_id>/', delete_order),
     path('sign_in/',sign_in,name="login"),
     path('logout/',logout_page,name='logout'),
-    path('reset_password/',auth_views.PasswordResetView.as_view(),name='reset_password'),
-    path('reset_password_done/',auth_views.PasswordResetDoneView.as_view(),name='password_reset_done'),
-    path('reset/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(),name='password_reset_confirm'),
-    path('reset_password_complete/',auth_views.PasswordResetCompleteView.as_view(),name='password_reset_complete')
+    path('reset_password/',auth_views.PasswordResetView.as_view(template_name='products/test1.html'),name='reset_password'),
+    path('reset_password_done/',auth_views.PasswordResetDoneView.as_view(template_name='products/test2.html'),name='password_reset_done'),
+    path('reset/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(template_name='products/test3.html'),name='password_reset_confirm'),
+    path('reset_password_complete/',auth_views.PasswordResetCompleteView.as_view(template_name='products/test4.html'),name='password_reset_complete'),
+    path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', activate, name='activate')
 ]
 

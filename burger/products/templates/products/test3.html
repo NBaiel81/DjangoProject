@@ -1,0 +1,6 @@
+<form method="POST" action="">
+    {%csrf_token%}
+    new password:{{form.new_password1}}
+    confirm password:{{form.new_password2}}
+    <input type="submit" name="submit">
+</form>
