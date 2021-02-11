@@ -27,6 +27,7 @@ class Product(models.Model):
 
 
 class AboutUs(models.Model):
+    image =models.ImageField()
     title = models.CharField(max_length=20,verbose_name='Название')
     description = models.TextField(blank=True,null=True,verbose_name='Описание')
 
@@ -64,6 +65,10 @@ class Order(models.Model):
     class Meta:
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
+
+class Document(models.Model):
+    file = models.FileField()
+
 
 
 
