@@ -1,27 +1,23 @@
 {% extends 'products/base.html' %}
 {% block content %}
-
 <table class="table">
-  <thead class="thead-dark">
+  <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Names</th>
-      <th scope="col">EMail</th>
-
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
     </tr>
   </thead>
   <tbody>
-  {% for user in users %}
     <tr>
-      <th scope="row"></th>
-      <td>{{user.username}}</td>
-      <td>{{user.email}}</td>
+      <th scope="row">1</th>
+      <td>{{ users.gender }}</td>
+      <td>{{ users.full_name }}</td>
+      <td>{{ users.phone }}</td>
+      <td>{{ users.wallet }}</td>
+      <td>{{ users.order_count }}</td>
     </tr>
-  {%endfor%}
-
-
   </tbody>
-
 </table>
 {% endblock %}
-

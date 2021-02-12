@@ -1,6 +1,6 @@
 # from django.contrib.auth.models import User
 # from django.shortcuts import render
-# from .models import Product,About_us,Contacts,Order
+# from .models import Product,About_us,Contacts,Order,Profile
 # from .forms import *
 # User
 
@@ -35,6 +35,9 @@ def register(request):
         form=SignupForm(request.POST)
         if form.is_valid():
             user=form.save(commit=False)
+            user.is_active = False
+            user.save()
+            Profile.objects.create(user=user)
             current_site=get_current_site(request)
             mail_subject='Activate your blog account.'
             message = render_to_string('products/acc_active_email.html',{
@@ -75,31 +78,43 @@ def order(request):
     orders=Order.objects.all()
     return render(request,"products/order.html",{"orders":orders})
 
-def create_order(request):
-    form=OrderForm()
+def create_order(request,product_id):
+    user1=Profile.objects.get(user=request.user)
+    product=Product.objects.get(id=product_id)
+    total_price=0
+    form=OrderForm(initial={'product':product,'user':request.user})
     if request.method=='POST':
         form=OrderForm(request.POST)
         if form.is_valid():
+            total_price=product.price * form.cleaned_data['quantity']
             form.save()
-    context={'form':form}
+            if form.cleaned_data['payment_type']=="Wall":
+                if user1.wallet>=total_price:
+                    user1.wallet-=total_price
+                    return HttpResponse('thanks for your money, your order will be delivered after 10000years')
+                else:
+                    return HttpResponse('гони деньги вася')
+            user1.order_count+=1
+            user1.save()
+    context={'form':form,'total_price':total_price}
     return render(request,'products/create_order.html',context)
 
 def update_order(request,order_id):
-    order = Order.objects.get(id=order_id)
+    orders = Order.objects.get(id=order_id)
     form = OrderForm(instance=order)
     if request.method == "POST":
-        form = OrderForm(request.POST,instance=order)
+        form = OrderForm(request.POST,instance=orders)
         if form.is_valid():
             form.save()
     context = {'form':form}
     return render(request,'products/create_order.html',context)
 
 def delete_order(request,order_id):
-    order = Order.objects.get(id=order_id)
+    orders = Order.objects.get(id=order_id)
     if request.method == 'POST':
         order.delete()
         return redirect('home')
-    context = {'order':order}
+    context = {'orders':orders}
     return render(request,'products/delete.html',context)
 
 def sign_in(request):

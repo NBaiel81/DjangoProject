@@ -1,3 +1,6 @@
+from datetime import date
+
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
@@ -56,6 +59,12 @@ class Order(models.Model):
         ('delivered','delivered'),
         ('not_delivered','not_delivered')
     )
+    payment_methods = (
+        ('Nal', 'Nal'),
+        ('Wall', 'Wall')
+    )
+    payment_type = models.CharField(max_length=20, choices=payment_methods)
+    user=models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
     status = models.CharField(max_length=50,choices=statuses,default='in_process',verbose_name='Статус')
     date = models.DateTimeField(auto_now_add=True,verbose_name='Дата')
     product = models.ForeignKey(Product,on_delete=models.SET_NULL,null=True,verbose_name='Продукты')
@@ -68,6 +77,21 @@ class Order(models.Model):
 
 class Document(models.Model):
     file = models.FileField()
+
+class Profile(models.Model):
+    genders = (
+        ('Male','Male'),
+        ('Female','Female')
+    )
+    user = models.OneToOneField(User,on_delete=models.SET_NULL,null=True)
+    image = models.ImageField()
+    full_name = models.CharField(max_length=60)
+    birth_date = models.DateField(default=date.today())
+    phone = models.IntegerField(default=0)
+    gender = models.CharField(max_length=20,choices=genders)
+    address = models.CharField(max_length=50)
+    wallet = models.IntegerField(default=0)
+    order_count = models.IntegerField(default=0)
 
 
 
