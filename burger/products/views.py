@@ -13,6 +13,7 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from .filters import ProductFilter
 
 from .models import Product,AboutUs,Contacts
 from .forms import *
@@ -23,7 +24,9 @@ from .token import account_activation_token
 
 def homepage(request):
     products = Product.objects.all()
-    return render(request,'products/products.html',{'products':products})
+    filters=ProductFilter(request.GET,queryset=products)
+    products=filters.qs
+    return render(request,'products/products.html',{'products':products, 'filters':filters})
 def us(request):
     about_us=AboutUs.objects.all()
     return render(request, 'products/about_us.html',{'about_us':about_us})
@@ -94,8 +97,11 @@ def create_order(request,product_id):
                     return HttpResponse('thanks for your money, your order will be delivered after 10000years')
                 else:
                     return HttpResponse('гони деньги вася')
-            user1.order_count+=1
-            user1.save()
+            else:
+                user1.order_count += 1
+                user1.save()
+                return HttpResponse('success')
+
     context={'form':form,'total_price':total_price}
     return render(request,'products/create_order.html',context)
 

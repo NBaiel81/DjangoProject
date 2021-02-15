@@ -13,7 +13,7 @@
                 <div class="card-body border mt-n1 py-4 text-center">
                     <h2 class="h5 mb-1">{{ product.name }}</h2>
                     <span class="d-block mb-3 font-size-xs text-muted">{{ product.description }}<span class="font-weight-semibold">{{ product.price }}</span><span class="font-weight-semibold">{{ product.category }}</span></span>
-                    <a class="btn btn-pill btn-outline-primary btn-sm" href="{% url 'create_order' %}">Add to cart</a>
+                    <a class="btn btn-pill btn-outline-primary btn-sm" href="{% url 'create_order' product.id %}">Add to cart</a>
                 </div>
             </div>
         </div>

@@ -7,7 +7,6 @@ urlpatterns=[
     path('contacts/',cont),
     path('regist/',register, name='register'),
     path('user_list/',user_list,name="users"),
-    path('orders/',order,name='create_order'),
     path('create_order/<int:product_id>/',create_order,name="create_order"),
     path('update_order/<int:order_id>/', update_order),
     path('delete_order/<int:order_id>/', delete_order),
