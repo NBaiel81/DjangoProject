@@ -18,7 +18,6 @@ from .filters import ProductFilter
 from .models import Product,AboutUs,Contacts
 from .forms import *
 
-# Create your views here.
 from .token import account_activation_token
 
 

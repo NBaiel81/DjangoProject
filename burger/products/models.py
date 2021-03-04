@@ -93,3 +93,4 @@ class Profile(models.Model):
     address = models.CharField(max_length=50)
     wallet = models.IntegerField(default=0)
     order_count = models.IntegerField(default=0)
+
